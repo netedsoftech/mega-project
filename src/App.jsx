@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { useDispatch } from 'react-redux'
 import authService from './appWrite/auth'
-import { logOut, login } from './store/authSlice'
+import { logout, login } from './store/authSlice'
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
 import { Outlet } from 'react-router-dom'
@@ -19,7 +19,7 @@ function App() {
         dispatch(login({userData}))
       }
       else{
-        dispatch(logOut())
+        dispatch(logout())
       }
     })
     .finally(() => setLoading(false))

@@ -1,4 +1,4 @@
-import confi from '../confi.js';
+import config from '../confi/config.js';
 import { Client,ID, Databases, Storage, Query } from 'appwrite';
 
 export class Service{
@@ -8,9 +8,10 @@ export class Service{
 
     constructor(){
         this.client
-        .setEndpoint(confi.appwriteUrl)
-        .setProject(confi.appwriteProjectId);
-        this.databases = new Storage(this.client)
+        .setEndpoint(config.appwriteUrl)
+        .setProject(config.appwriteProjectId);
+        this.databases = new Databases(this.client)
+        this.bucket = new Storage(this.client)
     }
 
 // createPost account start
@@ -18,8 +19,8 @@ export class Service{
     async createPost({title, slug, content, featuredImage, status, userId}){
         try {
             return await this.databases.createDocument(
-                confi.appwriteDatabaseId,
-                confi.appwriteCollectionId,
+                config.appwriteDatabaseId,
+                config.appwriteCollectionId,
                 slug,
                 {
                     title,
@@ -40,8 +41,8 @@ export class Service{
     async updatePost(slug, {title, content, featuredImage, status}){
       try {
         return await this.databases.updateDocument(
-            confi.appwriteDatabaseId,
-            confi.appwriteCollectionId,
+            config.appwriteDatabaseId,
+            config.appwriteCollectionId,
             slug,
             {
                 title,
@@ -63,8 +64,8 @@ export class Service{
     async deletePost(slug){
       try {
         return await this.databases.deleteDocument(
-            confi.appwriteDatabaseId,
-            confi.appwriteCollectionId,
+            config.appwriteDatabaseId,
+            config.appwriteCollectionId,
             slug
         )
         return true
@@ -79,8 +80,8 @@ export class Service{
 async getPost(slug){
     try {
         return await this.databases.getDocument(
-            confi.appwriteDatabaseId,
-            confi.appwriteCollectionId,
+            config.appwriteDatabaseId,
+            config.appwriteCollectionId,
             slug
         )
     } catch (error) {
@@ -97,8 +98,8 @@ async getPost(slug){
 async getPosts(queries = [Query.equal("status", "active")]){
     try {
         return await this.databases.listDocument(
-            confi.appwriteDatabaseId,
-            confi.appwriteCollectionId,
+            config.appwriteDatabaseId,
+            config.appwriteCollectionId,
             queries,
             
         )
@@ -114,7 +115,7 @@ async getPosts(queries = [Query.equal("status", "active")]){
 async uploadPost(file){
     try {
         return await this.bucket.createFile(
-            confi.appwriteBucketId,
+            config.appwriteBucketId,
             ID.unique(),
             file,
         )
@@ -130,7 +131,7 @@ async uploadPost(file){
 async deleteFile(fileId){
     try {
         await this.bucket.deleteFile(
-            confi.appwriteBucketId,
+            config.appwriteBucketId,
             fileId
         )
     } catch (error) {
