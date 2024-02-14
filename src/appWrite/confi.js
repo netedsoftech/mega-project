@@ -112,15 +112,15 @@ async getPosts(queries = [Query.equal("status", "active")]){
 
 // File upload service start
 
-async uploadPost(file){
+async uploadFile(file){
     try {
         return await this.bucket.createFile(
-            config.appwriteBucketId,
+            conf.appwriteBucketId,
             ID.unique(),
-            file,
+            file
         )
     } catch (error) {
-        console.log("Appwrite Service :: uploadPost :: error", error);
+        console.log("Appwrite serive :: uploadFile :: error", error);
         return false
     }
 }
