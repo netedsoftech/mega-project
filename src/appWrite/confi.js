@@ -97,11 +97,10 @@ async getPost(slug){
 
 async getPosts(queries = [Query.equal("status", "active")]){
     try {
-        return await this.databases.listDocument(
+        return await this.databases.listDocuments(
             config.appwriteDatabaseId,
             config.appwriteCollectionId,
-            queries,
-            
+            queries
         )
     } catch (error) {
         console.log("Appwrite Service :: getPosts :: error", error);
@@ -115,7 +114,7 @@ async getPosts(queries = [Query.equal("status", "active")]){
 async uploadFile(file){
     try {
         return await this.bucket.createFile(
-            conf.appwriteBucketId,
+            config.appwriteBucketId,
             ID.unique(),
             file
         )

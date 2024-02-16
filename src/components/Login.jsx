@@ -56,7 +56,7 @@ function Login() {
 <Input label="Password:" placeholder="Enter your Password" type="password" {...register('password', {
                 required: true,
             })} />
-            <Button type="submit" className="w-full">Sign in</Button>
+            <Button type="submit" className="w-full">Login</Button>
            </div>
         </form>
       </div>
