@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Input, Select, RTE } from "../";
+import { Button, Input, Select, RTE } from "..";
 import appwriteService from "../../appWrite/confi";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -60,6 +60,8 @@ export default function PostForm({ post }) {
         return "";
     }, []);
 
+
+
     React.useEffect(() => {
         const subscription = watch((value, { name }) => {
             if (name === "title") {
@@ -86,8 +88,8 @@ export default function PostForm({ post }) {
                     {...register("slug", { required: true })}
                     onInput={(e) => {
                         setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
-                    }}
-                />
+                    }} 
+                     />
                 <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
             </div>
             <div className="w-1/3 px-2">

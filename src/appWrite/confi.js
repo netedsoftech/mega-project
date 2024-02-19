@@ -68,7 +68,6 @@ export class Service{
             config.appwriteCollectionId,
             slug
         )
-        return true
       } catch (error) {
         console.log("Appwrite Service :: deletePost :: error", error);
         return false
@@ -143,9 +142,16 @@ async deleteFile(fileId){
 
 // File Preview service start
 
+// getFilePreview(fileId){
+//     return this.bucket.getFilePreview,
+//     fileId
+// }
+
 getFilePreview(fileId){
-    return this.bucket.getFilePreview,
-    fileId
+    return this.bucket.getFilePreview(
+        config.appwriteBucketId,
+        fileId
+    )
 }
 // File Preview service end
 
